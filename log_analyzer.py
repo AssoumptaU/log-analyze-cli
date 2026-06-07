@@ -1,28 +1,17 @@
-import json
+#We IMPORT the specific function from our Feature 1 file
+from feature1_read_file import read_log_file_lines
+# Import the Feature 2 tool
+from feature2_detect_format import extract_log_details
 
 file_to_open = "app.log"
 
 print("--- Starting the Log Analyzer ---")
 
-with open(file_to_open, "r") as file:
-    for line in file:
-        clean_line = line.strip()
-        
-        # --- FEATURE 2: DETECT FORMAT ---
-        try:
-            # Parse the line into a dictionary
-            structured_json_data = json.loads(clean_line)
-            
-            # Extract all THREE required fields 
-            log_timestamp = structured_json_data['timestamp']
-            log_level = structured_json_data['level']
-            log_message = structured_json_data['message']
-            
-            # Print all three extracted fields clearly
-            print(f"Detected JSON Format -> Timestamp: {log_timestamp}, Level: {log_level}, Message: {log_message}")
-            
-        except json.JSONDecodeError:
-            # If it's not JSON, it's a plain text line
-            print(f"Detected Plain Text Format -> {clean_line}")
+# 2. We USE the Feature 1 tool to get all our lines
+all_log_lines = read_log_file_lines(file_to_open)
+
+# 3. For now, let's just print them to prove it worked!
+for single_line in all_log_lines:
+    print(f"Feature 1 Read: {single_line}")
 
 print("--- Finished reading the file ---")

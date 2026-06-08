@@ -1,10 +1,9 @@
 # This file ONLY handles Feature 4: Finding the most common error message
 
 def track_error_message(message_text, error_dictionary):
-    """
-    This function takes an error message and our dictionary of tracked errors.
-    It cleans the message text, updates the count, and returns the updated dictionary.
-    """
+    
+#This function takes an error message and our dictionary of tracked errors.
+#It cleans the message text, updates the count, and returns the updated dictionary.
     # Clean up any hidden newlines (\n) or trailing spaces from the text
     clean_message = message_text.strip()
     
@@ -20,11 +19,10 @@ def track_error_message(message_text, error_dictionary):
 
 
 def find_most_frequent(error_dictionary):
-    """
-    This function looks at our completed dictionary and uses max() 
-    to find which error message key has the highest count value.
-    """
-    # If the dictionary is completely empty (no errors found at all)
+
+#This function looks at our completed dictionary and uses max() 
+# to find which error message key has the highest count value.
+# If the dictionary is completely empty (no errors found at all)
     if not error_dictionary:
         return "No errors found"
         

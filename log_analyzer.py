@@ -1,4 +1,3 @@
-
 # We bring in our specialized tools from their separate feature files
 from feature1_read_file import read_log_file_lines
 from feature2_detect_format import extract_log_details
@@ -14,6 +13,8 @@ total_errors = 0
 total_warnings = 0
 total_info_messages = 0
 
+# FEATURE 4: INITIALIZE ERROR DICTIONARY
+# We start with a completely empty dictionary to track unique error messages
 tracked_errors_pool = {}
 
 print("Starting the Log Analyzer ...")
@@ -36,21 +37,27 @@ for single_line in all_log_lines:
           f"Level: {log_details['level']}, "
           f"Message: {log_details['message']}")
     
-
-# FEATURE 3: INCREMENT COUNTERS (One variable at a time!)
-    # We check the level of this line and update the matching variable independently
-    if log_details['level'] == "ERROR":
+    # FEATURE 3: INCREMENT COUNTERS (One variable at a time!)
+    # We strip the level string to ensure exact matching without hidden spaces
+    clean_level = log_details['level'].strip()
+    
+    if clean_level == "ERROR":
         total_errors = increment_counter_by_one(total_errors)
         
-    elif log_details['level'] == "WARNING":
+        # FEATURE 4: TRACK ERROR MESSAGES
+        # If it's an ERROR, we also want to track its message to count frequencies
+        tracked_errors_pool = track_error_message(log_details['message'], tracked_errors_pool)
+        
+    elif clean_level == "WARNING":
         total_warnings = increment_counter_by_one(total_warnings)
         
-    elif log_details['level'] == "INFO":
+    elif clean_level == "INFO":
         total_info_messages = increment_counter_by_one(total_info_messages)
 
 
 # FEATURE 3: DISPLAY TOTALS
 # Now that the loop is completely done, we print the final counter results
+print("\n--- Final Log Level Totals ---")
 print(f"Errors:   {total_errors}")
 print(f"Warnings: {total_warnings}")
 print(f"Info:     {total_info_messages}")
@@ -59,6 +66,5 @@ print(f"Info:     {total_info_messages}")
 # We ask Feature 4 to analyze our dictionary pool and find the highest value key
 top_error_message = find_most_frequent(tracked_errors_pool)
 print(f"Most frequent error: {top_error_message}")
-
 
 print("Finished reading the file ")

@@ -1,0 +1,4 @@
+2026-01-15 10:03:22 ERROR Database timeout
+2026-01-15 10:04:01 INFO Server started
+2026-01-15 10:05:10 WARNING Disk space low
+{"timestamp": "2026-01-15 10:06:00", "level": "ERROR", "message": "Connection lost"}
